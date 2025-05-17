@@ -13,6 +13,11 @@ public class JeuClient extends Jeu {
 	@Override
 	public void connexion() {
 	}
+	
+	@Override
+	public void deconnexion() {
+		
+	}
 
 	@Override
 	public void reception() {
