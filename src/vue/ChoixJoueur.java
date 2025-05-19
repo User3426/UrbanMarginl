@@ -7,6 +7,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -23,29 +24,30 @@ import java.awt.Dimension;
  */
 public class ChoixJoueur extends JFrame {
 
-	Controle controle;
 	/**
 	 * Nombre de personnages différents
 	 */
 	private static final int NBPERSOS = 3;
 	/**
-	 * Numéro du personnage sélectionné
-	 */
-	private int numPerso;
-	/**
 	 * Panel général
 	 */
 	private JPanel contentPane;
-	
-	/**
-	 * Label d'affichage du personnage
-	 */
-	private JLabel lblPersonnage;
-	
 	/**
 	 * Zone de saisie du pseudo
 	 */
 	private JTextField txtPseudo;
+	/**
+	 * Label d'affichage du personnage
+	 */
+	private JLabel lblPersonnage;
+	/**
+	 * Instance du contrôleur pour communiquer avec lui
+	 */
+	private Controle controle;
+	/**
+	 * Numéro du personnage sélectionné
+	 */
+	private int numPerso;
 
 	/**
 	 * Clic sur la flèche "précédent" pour afficher le personnage précédent
@@ -60,15 +62,19 @@ public class ChoixJoueur extends JFrame {
 	 */
 	private void lblSuivant_clic() {
 		numPerso = (numPerso%NBPERSOS)+1 ;
-		affichePerso(); 
+		affichePerso();
 	}
 	
 	/**
 	 * Clic sur GO pour envoyer les informations
 	 */
 	private void lblGo_clic() {
-		(new Arene()).setVisible(true);
-		this.dispose();
+		if(this.txtPseudo.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
+			this.txtPseudo.requestFocus();
+		} else {
+			this.controle.evenementChoixJoueur(this.txtPseudo.getText(), numPerso);
+		}
 	}
 	
 	/**
@@ -79,6 +85,7 @@ public class ChoixJoueur extends JFrame {
 		URL resource = getClass().getClassLoader().getResource(chemin);
 		this.lblPersonnage.setIcon(new ImageIcon(resource));		
 	}
+
 	/**
 	 * Change le curseur de la souris en forme normale
 	 */
@@ -93,9 +100,9 @@ public class ChoixJoueur extends JFrame {
 		contentPane.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 
-
 	/**
 	 * Create the frame.
+	 * @param controle instance du contrôleur
 	 */
 	public ChoixJoueur(Controle controle) {
 		// Dimension de la frame en fonction de son contenu
@@ -109,7 +116,7 @@ public class ChoixJoueur extends JFrame {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		lblPersonnage = new JLabel("");
 		lblPersonnage.setBounds(142, 115, 120, 120);
 		lblPersonnage.setHorizontalAlignment(SwingConstants.CENTER);
@@ -191,6 +198,6 @@ public class ChoixJoueur extends JFrame {
 
 		// positionnement sur la zone de saisie
 		txtPseudo.requestFocus();
-		
+
 	}
 }
