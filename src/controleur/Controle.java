@@ -43,7 +43,7 @@ public class Controle implements AsyncResponse {
 	public static void main(String[] args) {
 		new Controle();
 	}
-	
+
 	/**
 	 * Constructeur
 	 */
@@ -51,7 +51,7 @@ public class Controle implements AsyncResponse {
 		this.frmEntreeJeu = new EntreeJeu(this) ;
 		this.frmEntreeJeu.setVisible(true);
 	}
-	
+
 	/**
 	 * Demande provenant de la vue EntreeJeu
 	 * @param info information à traiter
@@ -69,6 +69,16 @@ public class Controle implements AsyncResponse {
 		}
 		
 	}
+	
+	/**
+	 * Informations provenant de la vue ChoixJoueur
+	 * @param pseudo le pseudo du joueur
+	 * @param numPerso le numéro du personnage choisi par le joueur
+	 */
+	public void evenementChoixJoueur(String pseudo, int numPerso) {
+		this.frmChoixJoueur.dispose();
+		this.frmArene.setVisible(true);
+	}
 
 	@Override
 	public void reception(Connection connection, String ordre, Object info) {
@@ -77,7 +87,7 @@ public class Controle implements AsyncResponse {
 			if(this.typeJeu.equals("client")) {
 				this.frmEntreeJeu.dispose();
 				this.frmArene = new Arene();
-				this.frmChoixJoueur = new ChoixJoueur();
+				this.frmChoixJoueur = new ChoixJoueur(this);
 				this.frmChoixJoueur.setVisible(true);
 			}
 			break;
@@ -86,7 +96,7 @@ public class Controle implements AsyncResponse {
 		case "deconnexion" :
 			break;
 		}
-		
+
 	}
 
 }
