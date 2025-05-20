@@ -151,9 +151,21 @@ public interface Global {
 	 */
 	int DROITE = 1;
 	/**
+	 * taille du pas quand le personnage avance (nombre de pixels)
+	 */
+	int PAS = 10;
+	/**
+	 * nombre d'étapes (d'images) pour donner l'impresson de marche
+	 */
+	int NBETAPESMARCHE = 4;
+	/**
 	 * Message "serveur" pour la création d'un serveur
 	 */
 	String SERVEUR = "serveur";
+	/**
+	 * Message "client" pour la création d'un client
+	 */
+	String CLIENT = "client";
 	/**
 	 * ordre pour ajouter un mur dans l'arène du serveur
 	 */
@@ -170,5 +182,21 @@ public interface Global {
 	 * ordre pour modifier le panel du jeu dans l'aeène du client
 	 */
 	String MODIFPANELJEU = "modif panel jeu";
+	/**
+	 * ordre pour demander d'ajouter une phrase au tchat
+	 */
+	String TCHAT = "tchat";
+	/**
+	 * ordre pour ajouter une phrase dans l'arène du serveur
+	 */
+	String AJOUTPHRASE = "ajout phrase";
+	/**
+	 * ordre pour modifier le contenu du tchat dans l'arène du client
+	 */
+	String MODIFTCHAT = "modif tchat";
+	/**
+	 * ordre pour exécuter une action (déplacement, tire de boule)
+	 */
+	String ACTION = "action";
 
 }
